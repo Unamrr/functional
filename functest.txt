@@ -1,0 +1,112 @@
+(ns koans.01-equalities
+  (:require [koan-engine.core :refer :all]))
+
+(meditations
+  "We shall contemplate truth by testing reality, via equality"
+  (= true true)
+
+  "To understand reality, we must compare our expectations against reality"
+  (= 2 (+ 1 1))
+
+  "You can test equality of many things"
+  (= (+ 3 4) 7 (+ 2 5))
+
+  "Some things may appear different, but be the same"
+  (= true (= 2 2/1))
+
+  "You cannot generally float to heavens of integers"
+  (= false(= 2 2.0))
+
+  "But a looser equality is also possible"
+  (= true(== 2.0 2))
+
+  "Something is not equal to nothing"
+  (= true (not (= 1 nil)))
+
+  "Strings, and keywords, and symbols: oh my!"
+  (= false (= "hello" :hello 'hello))
+
+  "Make a keyword with your keyboard"
+  (= :hello (keyword "hello"))
+
+  "Symbolism is all around us"
+  
+  (= 'hello (symbol "hello"))
+
+  "What could be equivalent to nothing?"
+  (= nil nil)
+
+  "When things cannot be equal, they must be different"
+  (not= :fill-in-the-blank 17)) просто любое значение вставить
+
+//2
+(ns koans.02-strings
+  (:require [koan-engine.core :refer :all]
+            [clojure.string :as string]))
+
+(meditations
+  "A string is nothing more than text surrounded by double quotes"
+  (= "hello" "hello")
+
+  "But double quotes are just magic on top of something deeper"
+  (= __ (str 'world))
+
+  "You can do more than create strings, you can put them together"
+  (= "Cool right?" (str "Cool right?"))
+
+  "You can even get certain characters"
+  (= \C (get "Characters" 0))  // индекс типа 
+
+  "Or even count the characters"
+  (= 11 (count "Hello World"))
+
+  "But strings and characters are not the same"
+  (= false (= \c "c"))
+
+  "What if you only wanted to get part of a string?"
+  (= "World" (subs "Hello World" 6 11))
+
+  "How about joining together elements in a list?"
+  (= "123" (clojure.string/join '(1 2 3)))
+
+  "What if you wanted to separate them out?"
+  (= "1, 2, 3" (string/join __ '(1 2 3)))
+
+  "Maybe you want to separate out all your lines"
+  (= [__ __ __] (string/split-lines "1\n2\n3"))
+
+  "You may want to make sure your words are backwards"
+  (= __ (string/reverse "hello"))
+
+  "Maybe you want to find the index of the first occurrence of a substring"
+  (= 0 (string/index-of "hello world" __))
+
+  "Or maybe the last index of the same substring"
+  (= __ (string/last-index-of "hello world, hello" "hello"))
+
+  "But when something doesn't exist, nothing is found"
+  (= __ (string/index-of "hello world" "bob"))
+
+  "Sometimes you don't want whitespace cluttering the front and back"
+  (= __ (string/trim "  \nhello world \t \n"))
+
+  "You can check if something is a char"
+  (= __ (char? \c))
+
+  "But it may not be"
+  (= __ (char? "a"))
+
+  "But chars aren't strings"
+  (= __ (string? \b))
+
+  "Strings are strings"
+  (= true (string? __))
+
+  "Some strings may be blank"
+  (= __ (string/blank? ""))
+
+  "Even if at first glance they aren't"
+  (= __ (string/blank? " \n \t  "))
+
+  "However, most strings aren't blank"
+  (= __ (string/blank? "hello?\nare you out there?")))
