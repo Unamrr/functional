@@ -4,40 +4,48 @@
 (meditations
   "We shall contemplate truth by testing reality, via equality"
   (= true true)
+(= __ true)
+
 
   "To understand reality, we must compare our expectations against reality"
   (= 2 (+ 1 1))
+  (= __ (+ 1 1))
 
   "You can test equality of many things"
   (= (+ 3 4) 7 (+ 2 5))
+    (= (+ 3 4) 7 (+ 2 __))
+
 
   "Some things may appear different, but be the same"
   (= true (= 2 2/1))
+(= __ (= 2 2/1))
 
   "You cannot generally float to heavens of integers"
   (= false(= 2 2.0))
-
+(= __ (= 2 2.0))
   "But a looser equality is also possible"
   (= true(== 2.0 2))
-
+(= __ (== 2.0 2))
   "Something is not equal to nothing"
   (= true (not (= 1 nil)))
-
+(= __ (not (= 1 nil)))
   "Strings, and keywords, and symbols: oh my!"
   (= false (= "hello" :hello 'hello))
+(= __ (= "hello" :hello 'hello))
 
   "Make a keyword with your keyboard"
   (= :hello (keyword "hello"))
-
+ (= :hello (keyword __))
   "Symbolism is all around us"
   
   (= 'hello (symbol "hello"))
-
+ (= 'hello (symbol __))
   "What could be equivalent to nothing?"
   (= nil nil)
-
+(= __ nil)
   "When things cannot be equal, they must be different"
   (not= :fill-in-the-blank 17)) просто любое значение вставить
+(not= :fill-in-the-blank __))
 
 //2
 (ns koans.02-strings
@@ -47,66 +55,70 @@
 (meditations
   "A string is nothing more than text surrounded by double quotes"
   (= "hello" "hello")
-
+(= __ "hello")
   "But double quotes are just magic on top of something deeper"
-  (= __ (str 'world))
-
+  (= "world" (str 'world))
+(= __ (str 'world))
   "You can do more than create strings, you can put them together"
   (= "Cool right?" (str "Cool right?"))
-
+ (= "Cool right?" (str __ __))
   "You can even get certain characters"
   (= \C (get "Characters" 0))  // индекс типа 
-
+  (= \C (get "Characters" __))
   "Or even count the characters"
   (= 11 (count "Hello World"))
-
+  (= __ (count "Hello World"))
   "But strings and characters are not the same"
   (= false (= \c "c"))
+(= __ (= \c "c"))
 
   "What if you only wanted to get part of a string?"
   (= "World" (subs "Hello World" 6 11))
-
+(= "World" (subs "Hello World" __ __))
   "How about joining together elements in a list?"
   (= "123" (clojure.string/join '(1 2 3)))
-
-  "What if you wanted to separate them out?"
-  (= "1, 2, 3" (string/join __ '(1 2 3)))
-
+(= __ (string/join '(1 2 3)))
+  "What if you wanted to separate them out?" 
+  (= "1, 2, 3" (clojure.string/join ", " '(1 2 3)))
+(= "1, 2, 3" (string/join __ '(1 2 3)))
   "Maybe you want to separate out all your lines"
-  (= [__ __ __] (string/split-lines "1\n2\n3"))
-
+  (= ["1" "2" "3"] (clojure.string/split-lines "1\n2\n3"))
+(= [__ __ __] (string/split-lines "1\n2\n3"))
   "You may want to make sure your words are backwards"
-  (= __ (string/reverse "hello"))
-
+  (= "olleh" (clojure.string/reverse "hello"))
+ (= __ (string/reverse "hello"))
   "Maybe you want to find the index of the first occurrence of a substring"
+  (= 0 (clojure.string/index-of "hello world" "hello"))
   (= 0 (string/index-of "hello world" __))
-
   "Or maybe the last index of the same substring"
-  (= __ (string/last-index-of "hello world, hello" "hello"))
+  (= 13 (clojure.string/last-index-of "hello world, hello" "hello"))
+ (= __ (string/last-index-of "hello world, hello" "hello"))
 
   "But when something doesn't exist, nothing is found"
-  (= __ (string/index-of "hello world" "bob"))
+  (= nil (clojure.string/index-of "hello world" "bob"))
+ (= __ (string/index-of "hello world" "bob"))
 
   "Sometimes you don't want whitespace cluttering the front and back"
-  (= __ (string/trim "  \nhello world \t \n"))
-
+  (= "hello world" (clojure.string/trim "  \nhello world \t \n"))
+(= __ (string/trim "  \nhello world \t \n"))
   "You can check if something is a char"
-  (= __ (char? \c))
-
+  (= true (char? \c))
+(= __ (char? \c))
   "But it may not be"
-  (= __ (char? "a"))
-
+  (= false (char? "a"))
+ (= __ (char? "a"))
   "But chars aren't strings"
-  (= __ (string? \b))
-
+  (= false (string? \b))
+ (= __ (string? \b))
   "Strings are strings"
-  (= true (string? __))
-
+  (= true (string? "ma"))
+(= true (string? __))
   "Some strings may be blank"
-  (= __ (string/blank? ""))
-
+  (= true (clojure.string/blank? ""))
+ (= __ (string/blank? ""))
   "Even if at first glance they aren't"
+  (= true (clojure.string/blank? " \n \t  "))
   (= __ (string/blank? " \n \t  "))
-
   "However, most strings aren't blank"
-  (= __ (string/blank? "hello?\nare you out there?")))
+  (= false (clojure.string/blank? "hello?\nare you out there?")))
+(= __ (string/blank? "hello?\nare you out there?")))
